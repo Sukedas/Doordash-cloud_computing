@@ -1,0 +1,1210 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>group2_delivery1</title><style>:root {
+  --ink: #1d232b;
+  --muted: #5b6573;
+  --accent: #b3261e;
+  --rule: #d5dae1;
+  --band: #f3f5f8;
+}
+* { box-sizing: border-box; }
+html { font-size: 10.5pt; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: #fff;
+  font-family: "Cambria", "Georgia", serif;
+  line-height: 1.45;
+}
+h1, h2, h3, h4, .cover, th, figcaption, .toc, .callout-title {
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+h1 { font-size: 20pt; margin: 0 0 0.4em; }
+h2 {
+  font-size: 15pt;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 3px;
+  margin: 1.6em 0 0.6em;
+  break-after: avoid;
+}
+h2.chapter { break-before: page; }
+h3 { font-size: 12pt; margin: 1.3em 0 0.4em; break-after: avoid; }
+h4 { font-size: 10.5pt; margin: 1.1em 0 0.3em; break-after: avoid; color: var(--muted); }
+p { margin: 0.45em 0; text-align: justify; }
+a { color: inherit; text-decoration: none; }
+code { font-family: Consolas, "Courier New", monospace; font-size: 0.9em; background: var(--band); padding: 0 3px; border-radius: 2px; }
+pre { background: var(--band); padding: 8px 10px; font-size: 8.5pt; border-left: 3px solid var(--rule); white-space: pre-wrap; break-inside: avoid; }
+pre code { background: none; padding: 0; }
+ul, ol { margin: 0.35em 0 0.5em 1.3em; padding: 0; }
+li { margin: 0.15em 0; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 1.2em 0; }
+blockquote {
+  margin: 0.8em 0;
+  padding: 6px 12px;
+  border-left: 4px solid var(--accent);
+  background: var(--band);
+  break-inside: avoid;
+}
+blockquote p { margin: 0.2em 0; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.6em 0 1em;
+  font-size: 8.8pt;
+  line-height: 1.3;
+}
+thead { display: table-header-group; }
+tr { break-inside: avoid; }
+th {
+  background: #2c3440;
+  color: #fff;
+  text-align: left;
+  font-weight: 600;
+  padding: 5px 6px;
+}
+td { padding: 4px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; text-align: left; }
+tbody tr:nth-child(even) td { background: var(--band); }
+
+figure { margin: 1em 0 1.2em; text-align: center; break-inside: avoid; }
+figure img { max-width: 100%; max-height: 8.3in; }
+figcaption { font-size: 8.8pt; color: var(--muted); margin-top: 4px; }
+
+/* Cover page */
+.cover { height: 9.2in; display: flex; flex-direction: column; justify-content: space-between; break-after: page; }
+.cover .inst { font-size: 10pt; color: var(--muted); line-height: 1.5; }
+.cover .course { font-size: 11pt; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.cover .title { font-size: 28pt; font-weight: 700; line-height: 1.15; margin: 0.2em 0; }
+.cover .subtitle { font-size: 14pt; color: var(--muted); }
+.cover .bar { height: 6px; width: 90px; background: var(--accent); margin: 18px 0; }
+.cover table { font-size: 10pt; width: auto; }
+.cover td { border: 0; padding: 2px 16px 2px 0; background: none !important; }
+.cover .meta { font-size: 10pt; }
+
+/* Table of contents */
+.toc { break-after: page; }
+.toc-title { border: 0; color: var(--ink); }
+.toc ul { list-style: none; margin: 0; }
+.toc li { margin: 0.25em 0; font-size: 10.5pt; }
+.toc li.toc-3 { margin-left: 1.4em; font-size: 9.5pt; color: var(--muted); }
+
+.small { font-size: 8.8pt; color: var(--muted); }
+.refs li { font-size: 9pt; margin-bottom: 0.35em; }
+td:first-child { white-space: nowrap; }
+figure.wide img { max-height: 9in; }
+</style></head><body><section class="cover">
+<div class="inst">Universidad Distrital Francisco José de Caldas<br>School of Engineering · Computer Engineering Program</div>
+<div>
+<div class="course">Cloud Computing · Semester 2026-III</div>
+<div class="bar"></div>
+<div class="title">DoorDash — Food Delivery Platform</div>
+<div class="subtitle">Delivery No. 1 — Requirements &amp; Workload Model</div>
+<div class="subtitle" style="font-size:11pt;margin-top:6px">Focus domain: Order Management, Route Optimization &amp; Notifications</div>
+</div>
+<div class="meta">
+<table>
+<tr><td><b>Team</b></td><td>Team 2</td></tr>
+<tr><td><b>Members</b></td><td>Daniel Felipe Barrera Suárez<br>Jaider Camilo Carvajal Marín<br>Nelson David Posso Suárez<br>Edward Julián García Gaitán<br>Julián David Cabrera Barragán</td></tr>
+<tr><td><b>Professor</b></td><td>Eng. Carlos Andrés Sierra, M.Sc.</td></tr>
+<tr><td><b>Date</b></td><td>September 2026</td></tr>
+</table>
+</div>
+</section>
+
+<nav class="toc"><h2 class="toc-title">Table of Contents</h2><ul><li class="toc-2"><a href="#1-executive-summary">1. Executive Summary</a></li>
+<li class="toc-2"><a href="#2-system-description">2. System Description</a></li>
+<li class="toc-3"><a href="#2-1-business-problem">2.1 Business Problem</a></li>
+<li class="toc-3"><a href="#2-2-actors">2.2 Actors</a></li>
+<li class="toc-3"><a href="#2-3-main-use-cases">2.3 Main Use Cases</a></li>
+<li class="toc-3"><a href="#2-4-system-boundaries">2.4 System Boundaries</a></li>
+<li class="toc-2"><a href="#3-functional-requirements">3. Functional Requirements</a></li>
+<li class="toc-3"><a href="#3-1-requirement-catalog">3.1 Requirement Catalog</a></li>
+<li class="toc-3"><a href="#3-2-traceability-matrix-use-case-functional-requirement">3.2 Traceability Matrix (Use Case ↔ Functional Requirement)</a></li>
+<li class="toc-2"><a href="#4-non-functional-requirements">4. Non-Functional Requirements</a></li>
+<li class="toc-3"><a href="#4-1-expected-users">4.1 Expected Users</a></li>
+<li class="toc-3"><a href="#4-2-throughput-and-peak">4.2 Throughput and Peak</a></li>
+<li class="toc-3"><a href="#4-3-response-time-percentile-based-measured-at-the-system-edge">4.3 Response Time (percentile-based, measured at the system edge)</a></li>
+<li class="toc-3"><a href="#4-4-availability-and-reliability">4.4 Availability and Reliability</a></li>
+<li class="toc-3"><a href="#4-5-consistency-and-delivery-sla">4.5 Consistency and Delivery SLA</a></li>
+<li class="toc-3"><a href="#4-6-data-volume-and-growth">4.6 Data Volume and Growth</a></li>
+<li class="toc-3"><a href="#4-7-geographic-scope">4.7 Geographic Scope</a></li>
+<li class="toc-2"><a href="#5-workload-model">5. Workload Model</a></li>
+<li class="toc-3"><a href="#5-1-methodology">5.1 Methodology</a></li>
+<li class="toc-3"><a href="#5-2-request-footprint-per-order">5.2 Request Footprint per Order</a></li>
+<li class="toc-3"><a href="#5-3-concurrent-users">5.3 Concurrent Users</a></li>
+<li class="toc-3"><a href="#5-4-data-volume">5.4 Data Volume</a></li>
+<li class="toc-3"><a href="#5-5-workload-model-summary">5.5 Workload Model Summary</a></li>
+<li class="toc-3"><a href="#5-6-daily-load-profile">5.6 Daily Load Profile</a></li>
+<li class="toc-2"><a href="#6-assumptions-and-constraints">6. Assumptions and Constraints</a></li>
+<li class="toc-2"><a href="#7-references">7. References</a></li></ul></nav>
+
+<h2 id="1-executive-summary">1. Executive Summary</h2>
+<p>DoorDash is a three-sided, last-mile logistics marketplace that connects <strong>consumers</strong> who want food and convenience goods, <strong>merchants</strong> (restaurants and stores) who prepare them, and independent couriers called <strong>Dashers</strong> who carry them. In fiscal year 2025 the company processed roughly <strong>3.17 billion orders</strong> (≈ 8.7 million per day), served <strong>more than 56 million monthly active users</strong>, partnered with <strong>more than 1 million merchants</strong> and operated in <strong>more than 40 countries</strong> [1][2]. Order volume grew about <strong>23 % year over year</strong> between 2024 and 2025 [1][3].</p>
+<p>This document specifies the system that Team 2 will design during the semester: a food delivery platform focused on <strong>order management, route optimization and notifications</strong>. The course assignment fixes the design-point workload at <strong>50,000+ concurrent orders during peak hours, 1,000+ restaurants and complex routing</strong>, with <strong>99.9 % availability</strong>, <strong>eventual consistency for order status</strong> and <strong>time-based SLAs (delivery windows)</strong> [4]. We size the system at that design point and scale every other quantity (users, requests, data) from DoorDash&#39;s public figures, so that each value in the workload model is traceable to a source.</p>
+<p>The problem is a hard distributed-systems problem for five reasons:</p>
+<ol>
+<li><strong>Every order is a long-running, multi-party workflow.</strong> A single order lives ~40 minutes and passes through about ten states that are driven by four different parties (consumer, payment processor, merchant, Dasher). The state must survive partial failures and reach all parties quickly, which makes the order a distributed state machine rather than a database row.</li>
+<li><strong>Demand is extremely peaked.</strong> Dinner (≈ 16:30–20:00 local time) concentrates demand; the peak hour carries about <strong>2.9×</strong> the average hourly load, and the system must absorb it without violating delivery windows.</li>
+<li><strong>Dispatch and routing are real-time optimization problems.</strong> Each order must be matched to one of tens of thousands of moving Dashers, possibly batched with other orders, while predicting food-preparation and travel times [5][6].</li>
+<li><strong>Telemetry dominates the write path.</strong> Online Dashers report GPS positions every few seconds [7]; at peak this is ~36 million writes per hour — more than twice all other traffic combined.</li>
+<li><strong>The platform depends on systems it does not control.</strong> Merchant point-of-sale (POS) systems impose API rate limits [8], payment processors and maps providers add latency and failure modes, and the platform spans several countries and time zones (multi-region orchestration).</li>
+</ol>
+<p>The headline design-point numbers are summarized below and justified in Section 5.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Average</th>
+<th>Peak (dinner)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Concurrent orders in flight</td>
+<td>17,400</td>
+<td><strong>50,000</strong></td>
+</tr>
+<tr>
+<td>New orders per hour</td>
+<td>26,000</td>
+<td>75,000</td>
+</tr>
+<tr>
+<td>Total requests per hour</td>
+<td>21.7 M (≈ 6,000 req/s)</td>
+<td>51.6 M (≈ 14,300 req/s)</td>
+</tr>
+<tr>
+<td>Online Dashers</td>
+<td>22,600</td>
+<td>50,000</td>
+</tr>
+<tr>
+<td>Availability target</td>
+<td>99.9 % (≤ 43.8 min downtime / month)</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="2-system-description">2. System Description</h2>
+<h3 id="2-1-business-problem">2.1 Business Problem</h3>
+<p><strong>Pain point.</strong> Restaurants traditionally could only serve customers who walked in or who lived within reach of their own (expensive, under-utilized) delivery staff. Consumers could only order from the few restaurants that delivered. Individual couriers had no steady flow of work. DoorDash solves this coordination problem by pooling demand from millions of consumers and supply from millions of flexible couriers, so that almost any local merchant can offer on-demand delivery within a promised time window.</p>
+<p><strong>Who benefits.</strong></p>
+<ul>
+<li><em>Consumers</em> get selection (thousands of merchants in a city) and convenience (delivery in well under an hour, with live tracking).</li>
+<li><em>Merchants</em> get incremental sales without running a fleet — DoorDash generated nearly <strong>$75 billion in sales for local merchants</strong> in 2025 [1].</li>
+<li><em>Dashers</em> get flexible earning opportunities — more than <strong>8 million people dashed in 2024</strong>, earning over <strong>$18 billion</strong> [2]; Dasher earnings exceeded <strong>$20 billion</strong> in 2025 [1].</li>
+</ul>
+<p><strong>Why it is operationally challenging at scale.</strong></p>
+<ul>
+<li><em>Time is the product.</em> Value is lost if food arrives cold or late. The platform must quote a delivery window before checkout and then keep it, which couples order management, dispatch and routing into one real-time control loop.</li>
+<li><em>Three-sided coordination.</em> Each order requires a consumer, a merchant and a Dasher to act in the right order. Any of them can be slow, offline or cancel.</li>
+<li><em>Peaks and geography.</em> Demand surges at lunch and dinner in each time zone, and weather or sporting events create local spikes.</li>
+<li><em>External dependencies.</em> Merchant integrations are heterogeneous (tablet, POS API, e-mail/phone) and rate-limited; payment authorization and maps queries are remote calls to third parties.</li>
+<li><em>Consistency trade-offs.</em> Payment records must be exact, but order-status views can be eventually consistent as long as they converge within seconds.</li>
+</ul>
+<h3 id="2-2-actors">2.2 Actors</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Actor</th>
+<th>Type</th>
+<th>Role</th>
+<th>Interaction frequency</th>
+<th>Expectations</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A-01</td>
+<td>Consumer</td>
+<td>Human</td>
+<td>Browses merchants, places, pays for, tracks and rates orders.</td>
+<td>~4 sessions per order, ~25 requests per session; continuous tracking while an order is active.</td>
+<td>Fast browsing (&lt; 300 ms), accurate ETA, live location, reliable payment, clear notifications.</td>
+</tr>
+<tr>
+<td>A-02</td>
+<td>Merchant staff</td>
+<td>Human</td>
+<td>Receives, confirms and prepares orders; maintains menu, prices, hours and item availability.</td>
+<td>~10 interactions per order; menu edits several times per day.</td>
+<td>Orders arrive immediately and exactly once; simple confirm / ready actions; Dasher arrives when food is ready.</td>
+</tr>
+<tr>
+<td>A-03</td>
+<td>Dasher</td>
+<td>Human</td>
+<td>Goes online, accepts or declines delivery offers, picks up and drops off orders.</td>
+<td>Location report every ~5 s while online; ~15 actions per delivery.</td>
+<td>Fair, well-paid offers; accurate navigation and pickup times; instant earnings visibility.</td>
+</tr>
+<tr>
+<td>A-04</td>
+<td>Support &amp; Operations agent</td>
+<td>Human</td>
+<td>Resolves order problems, issues refunds and credits, monitors markets.</td>
+<td>Low volume (≈ 2–5 % of orders need support).</td>
+<td>Complete order timeline; authority to cancel, refund, reassign.</td>
+</tr>
+<tr>
+<td>A-05</td>
+<td>Payment processor</td>
+<td>External system</td>
+<td>Authorizes, captures and refunds card payments; tokenizes cards.</td>
+<td>3–4 calls per order.</td>
+<td>Idempotent requests; compliant handling of card data.</td>
+</tr>
+<tr>
+<td>A-06</td>
+<td>Merchant POS / ordering API</td>
+<td>External system</td>
+<td>Receives orders directly in the merchant&#39;s point-of-sale system; returns confirmations.</td>
+<td>~2–4 calls per order; subject to per-merchant rate limits (e.g. ~300 requests per 60 s) [8].</td>
+<td>Requests within declared rate limits; retries without duplicates.</td>
+</tr>
+<tr>
+<td>A-07</td>
+<td>Maps &amp; traffic provider</td>
+<td>External system</td>
+<td>Geocoding, road network, travel-time and traffic estimates.</td>
+<td>Many calls per dispatch cycle; cached aggressively.</td>
+<td>Bounded query volume; tolerant of stale traffic data.</td>
+</tr>
+<tr>
+<td>A-08</td>
+<td>Push / SMS / e-mail gateways</td>
+<td>External system</td>
+<td>Deliver notifications to devices and phone numbers.</td>
+<td>~8 messages per order.</td>
+<td>Well-formed, de-duplicated, rate-respecting messages.</td>
+</tr>
+<tr>
+<td>A-09</td>
+<td>Identity verification provider</td>
+<td>External system</td>
+<td>Verifies identity and background checks for new Dashers.</td>
+<td>Once per Dasher onboarding.</td>
+<td>Secure transfer of personal data; asynchronous results.</td>
+</tr>
+</tbody></table>
+<h3 id="2-3-main-use-cases">2.3 Main Use Cases</h3>
+<figure><img src="../diagrams/use_cases.svg" alt="Figure 1. Use case diagram"><figcaption>Figure 1. Use case diagram</figcaption></figure>
+<p>Each use case below lists its actors, preconditions, main flow, alternative flows and postconditions. The functional requirements that realize each use case are given in brackets and in the traceability matrix (Section 3.2).</p>
+<h4 id="uc-01-browse-and-search-restaurants-fr-02-fr-03">UC-01 Browse and search restaurants [FR-02, FR-03]</h4>
+<ul>
+<li><strong>Actors:</strong> Consumer; Maps provider (secondary).</li>
+<li><strong>Preconditions:</strong> Consumer has a delivery address (typed or from device location).</li>
+<li><strong>Main flow:</strong> (1) Consumer opens the app. (2) System resolves the address to a delivery zone. (3) System lists merchants that are open and deliver to the zone, ranked, each with an estimated delivery window and fee. (4) Consumer searches by keyword or cuisine, or filters. (5) Consumer opens a merchant and sees the current menu with only available items.</li>
+<li><strong>Alternative flows:</strong> 3a. No merchant serves the address — system shows &quot;no delivery available&quot; and suggests pickup. 5a. Merchant closes while being viewed — checkout is disabled with an explanation.</li>
+<li><strong>Postconditions:</strong> No state change; browsing events are recorded for analytics.</li>
+</ul>
+<h4 id="uc-02-place-order-and-pay-fr-01-fr-04-fr-05-fr-07-fr-10">UC-02 Place order and pay [FR-01, FR-04, FR-05, FR-07, FR-10]</h4>
+<ul>
+<li><strong>Actors:</strong> Consumer; Payment processor.</li>
+<li><strong>Preconditions:</strong> Consumer is authenticated; cart contains items from one open merchant; valid payment method on file.</li>
+<li><strong>Main flow:</strong> (1) Consumer reviews cart; system re-prices items, fees, taxes and promotions and quotes a delivery window. (2) Consumer confirms. (3) System creates the order with an idempotency key. (4) System requests payment authorization for the total. (5) On approval the order moves to PAYMENT_AUTHORIZED and is handed to merchant integration (UC-03) and dispatch (UC-06). (6) Consumer sees confirmation and the quoted window.</li>
+<li><strong>Alternative flows:</strong> 4a. Authorization declined — order is CANCELLED, consumer asked for another method. 3a. Consumer taps &quot;confirm&quot; twice or the network retries — the idempotency key returns the same order, no duplicate charge. 1a. Item or price changed since it was added — consumer must re-confirm.</li>
+<li><strong>Postconditions:</strong> Exactly one order exists with an authorized (not yet captured) payment and a quoted delivery window.</li>
+</ul>
+<h4 id="uc-03-confirm-and-prepare-order-fr-05-fr-06">UC-03 Confirm and prepare order [FR-05, FR-06]</h4>
+<ul>
+<li><strong>Actors:</strong> Merchant staff; Merchant POS (secondary).</li>
+<li><strong>Preconditions:</strong> Order is PAYMENT_AUTHORIZED; merchant is open.</li>
+<li><strong>Main flow:</strong> (1) System transmits the order to the merchant through its integration channel (POS API, tablet, or fallback). (2) Merchant confirms and optionally adjusts preparation time. (3) Order moves to CONFIRMED then PREPARING. (4) Merchant marks the order READY FOR PICKUP (or the system infers it from the prep-time estimate).</li>
+<li><strong>Alternative flows:</strong> 1a. POS rate limit reached — transmission is queued and retried within the limit. 2a. Merchant rejects (item out of stock) — order CANCELLED, authorization voided, consumer notified. 2b. No response within 5 minutes — escalation call, then automatic cancellation.</li>
+<li><strong>Postconditions:</strong> Merchant has accepted the order exactly once and the expected ready time is known to dispatch.</li>
+</ul>
+<h4 id="uc-04-manage-menu-and-availability-fr-03">UC-04 Manage menu and availability [FR-03]</h4>
+<ul>
+<li><strong>Actors:</strong> Merchant staff; Merchant POS.</li>
+<li><strong>Preconditions:</strong> Merchant account is active.</li>
+<li><strong>Main flow:</strong> (1) Merchant edits items, prices, photos, opening hours or marks an item out of stock (or the POS pushes the change). (2) System validates and versions the menu. (3) Consumers see the change within 60 seconds.</li>
+<li><strong>Alternative flows:</strong> 2a. Invalid price or missing mandatory data — change rejected with reason. 1a. Merchant &quot;pauses&quot; the store during a rush — merchant hidden from discovery until resumed.</li>
+<li><strong>Postconditions:</strong> A new menu version is active; carts containing removed items are flagged at checkout.</li>
+</ul>
+<h4 id="uc-05-go-online-and-manage-availability-dasher-fr-01-fr-08-fr-11">UC-05 Go online and manage availability (Dasher) [FR-01, FR-08, FR-11]</h4>
+<ul>
+<li><strong>Actors:</strong> Dasher.</li>
+<li><strong>Preconditions:</strong> Dasher account is verified and active.</li>
+<li><strong>Main flow:</strong> (1) Dasher selects a zone and goes online. (2) System marks the Dasher ONLINE IDLE and starts accepting location reports. (3) Dasher receives offers (UC-06) until going offline.</li>
+<li><strong>Alternative flows:</strong> 2a. Zone is saturated — Dasher is placed on a waitlist. 3a. Location heartbeat lost for 2 minutes — Dasher set OFFLINE, excluded from dispatch.</li>
+<li><strong>Postconditions:</strong> Dasher state and last known location are available to dispatch.</li>
+</ul>
+<h4 id="uc-06-dispatch-and-accept-delivery-offer-fr-08-fr-09-fr-10">UC-06 Dispatch and accept delivery offer [FR-08, FR-09, FR-10]</h4>
+<ul>
+<li><strong>Actors:</strong> Dasher; Maps provider.</li>
+<li><strong>Preconditions:</strong> Order is CONFIRMED; at least one ONLINE Dasher in range.</li>
+<li><strong>Main flow:</strong> (1) Dispatch periodically evaluates unassigned orders and nearby Dashers, predicting pickup and drop-off times. (2) It chooses the assignment (possibly batching two orders from nearby merchants) that best meets delivery windows and Dasher efficiency [5][6][14]. (3) The Dasher receives an offer showing pay, distance and pickup location. (4) Dasher accepts within 45 s. (5) Order&#39;s Dasher sub-state becomes ASSIGNED and the ETA is recalculated.</li>
+<li><strong>Alternative flows:</strong> 4a. Dasher declines or times out — the order re-enters the next dispatch cycle. 2a. No Dasher available — the delivery window is re-quoted and the consumer notified; incentives may be raised.</li>
+<li><strong>Postconditions:</strong> Exactly one Dasher is responsible for the order; consumer and merchant see the Dasher and ETA.</li>
+</ul>
+<h4 id="uc-07-pick-up-and-deliver-order-fr-05-fr-08-fr-10-fr-12">UC-07 Pick up and deliver order [FR-05, FR-08, FR-10, FR-12]</h4>
+<ul>
+<li><strong>Actors:</strong> Dasher; Merchant staff; Consumer.</li>
+<li><strong>Preconditions:</strong> Order ASSIGNED to the Dasher.</li>
+<li><strong>Main flow:</strong> (1) Dasher navigates to the store (EN ROUTE TO STORE). (2) Arrival detected by geofence (AT STORE). (3) Dasher confirms pickup (PICKED UP). (4) Dasher navigates to the consumer; for batched orders, the route is re-sequenced. (5) Dasher confirms drop-off with photo or PIN (DELIVERED). (6) System captures payment and records Dasher earnings.</li>
+<li><strong>Alternative flows:</strong> 2a. Food not ready — wait time recorded, ETA updated. 5a. Consumer unreachable — follow the contact protocol; after the timeout the order is DELIVERY FAILED and support decides refund policy.</li>
+<li><strong>Postconditions:</strong> Order DELIVERED; payment captured; earnings recorded; Dasher returns to IDLE.</li>
+</ul>
+<h4 id="uc-08-track-order-in-real-time-fr-10-fr-11-fr-12">UC-08 Track order in real time [FR-10, FR-11, FR-12]</h4>
+<ul>
+<li><strong>Actors:</strong> Consumer.</li>
+<li><strong>Preconditions:</strong> Consumer has an active order.</li>
+<li><strong>Main flow:</strong> (1) Consumer opens the order screen. (2) System shows the current state, the ETA and — once the Dasher is assigned — the Dasher&#39;s position on a map refreshed at least every 5 s. (3) System pushes state changes as they occur.</li>
+<li><strong>Alternative flows:</strong> 2a. Dasher location stale (&gt; 30 s) — map shows last known position with a &quot;location updating&quot; hint. 3a. Push connection lost — client falls back to periodic refresh.</li>
+<li><strong>Postconditions:</strong> No state change.</li>
+</ul>
+<h4 id="uc-09-cancel-order-and-refund-fr-05-fr-07-fr-12">UC-09 Cancel order and refund [FR-05, FR-07, FR-12]</h4>
+<ul>
+<li><strong>Actors:</strong> Consumer or Support agent; Payment processor.</li>
+<li><strong>Preconditions:</strong> Order not yet DELIVERED.</li>
+<li><strong>Main flow:</strong> (1) Actor requests cancellation. (2) System evaluates the cancellation policy for the current state (full refund before merchant confirmation; partial after preparation starts). (3) Order moves to CANCELLED. (4) Merchant and Dasher are notified; the Dasher is released. (5) Authorization is voided or a refund issued.</li>
+<li><strong>Alternative flows:</strong> 2a. Order already PICKED UP — consumer self-cancel not allowed; routed to support.</li>
+<li><strong>Postconditions:</strong> Order CANCELLED; financial records balanced; all parties informed.</li>
+</ul>
+<h4 id="uc-10-receive-order-notifications-fr-12">UC-10 Receive order notifications [FR-12]</h4>
+<ul>
+<li><strong>Actors:</strong> Consumer, Merchant, Dasher; Push/SMS gateways.</li>
+<li><strong>Preconditions:</strong> Actor has a registered device or phone and notification preferences.</li>
+<li><strong>Main flow:</strong> (1) An order or delivery state changes. (2) System selects recipients, channel and localized template. (3) Message is delivered through the push gateway. (4) Delivery receipt is recorded.</li>
+<li><strong>Alternative flows:</strong> 3a. Push not delivered within 30 s for a critical message (e.g. &quot;Dasher arriving&quot;) — SMS fallback. 2a. Duplicate event — suppressed by de-duplication.</li>
+<li><strong>Postconditions:</strong> Each recipient receives each notification at most once per event.</li>
+</ul>
+<h3 id="2-4-system-boundaries">2.4 System Boundaries</h3>
+<p>The diagram below shows the platform as the system under design and the actors and external systems around it. The capability boxes inside the boundary are <em>functional areas</em>, not a service decomposition — that decomposition is the subject of Delivery 2.</p>
+<figure><img src="../diagrams/system_boundary.svg" alt="Figure 2. System boundary diagram"><figcaption>Figure 2. System boundary diagram</figcaption></figure>
+<table>
+<thead>
+<tr>
+<th>Inside the scope (we design and build)</th>
+<th>Outside the scope (we integrate with or ignore)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Consumer, merchant and Dasher accounts, authentication and roles</td>
+<td>Card processing, card networks, bank settlement (payment processor)</td>
+</tr>
+<tr>
+<td>Merchant catalog: stores, menus, hours, availability</td>
+<td>The merchant&#39;s own POS, kitchen display and inventory systems</td>
+</tr>
+<tr>
+<td>Discovery and search of merchants and items</td>
+<td>Map data, geocoding and traffic data (maps provider)</td>
+</tr>
+<tr>
+<td>Cart, checkout, pricing of fees and order state machine</td>
+<td>Delivery of push messages / SMS / e-mail to devices (gateways)</td>
+</tr>
+<tr>
+<td>Payment orchestration (authorize / capture / refund) and Dasher earnings ledger</td>
+<td>Identity verification and background checks for Dashers</td>
+</tr>
+<tr>
+<td>Merchant order transmission with rate limiting and retries</td>
+<td>Dasher payouts to bank accounts, tax filing, accounting</td>
+</tr>
+<tr>
+<td>Dispatch (order–Dasher assignment and batching)</td>
+<td>Marketing campaigns, advertising platform, loyalty membership billing</td>
+</tr>
+<tr>
+<td>Route optimization and ETA prediction</td>
+<td>Grocery / retail inventory, pharmacy, alcohol age-verification flows</td>
+</tr>
+<tr>
+<td>Real-time Dasher location tracking</td>
+<td>Customer-support tooling beyond order actions (ticketing, telephony)</td>
+</tr>
+<tr>
+<td>Notifications orchestration (who, what, when, which channel)</td>
+<td>Machine-learning model training platform (models are consumed, not trained)</td>
+</tr>
+<tr>
+<td>Operational event stream for analytics dashboards</td>
+<td>Corporate data warehouse and BI reporting</td>
+</tr>
+</tbody></table>
+<h2 id="3-functional-requirements">3. Functional Requirements</h2>
+<h3 id="3-1-requirement-catalog">3.1 Requirement Catalog</h3>
+<p>Requirements follow the pattern <em>&quot;The system shall [action] [object] [condition/constraint]&quot;</em> and are grouped by functional domain. Identifiers are stable and will be used for traceability in Deliveries 2–4.</p>
+<h4 id="domain-identity-amp-accounts">Domain: Identity &amp; Accounts</h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Use cases</th>
+<th>Verification</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>FR-01</strong></td>
+<td>The system shall register and authenticate consumers, merchant staff, Dashers and support agents, and shall authorize every operation according to the actor&#39;s role, so that a Dasher can only act on orders assigned to them and merchant staff only on their own store&#39;s orders.</td>
+<td>UC-02, UC-05</td>
+<td>Access-control tests per role; attempts outside the role are rejected with an authorization error.</td>
+</tr>
+</tbody></table>
+<h4 id="domain-catalog-amp-discovery">Domain: Catalog &amp; Discovery</h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Use cases</th>
+<th>Verification</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>FR-02</strong></td>
+<td>The system shall return, for a given delivery address, the list of open merchants that deliver to that address, ranked and each annotated with an estimated delivery window and delivery fee, and shall support keyword and cuisine search over merchant and item names.</td>
+<td>UC-01</td>
+<td>Search results contain only open, in-range merchants; each result has a window and fee.</td>
+</tr>
+<tr>
+<td><strong>FR-03</strong></td>
+<td>The system shall allow merchants (directly or through their POS) to create, update, version and pause menus, prices, item availability and opening hours, and shall make every change visible to consumers within 60 seconds.</td>
+<td>UC-01, UC-04</td>
+<td>Timestamp difference between merchant edit and consumer visibility ≤ 60 s at p99.</td>
+</tr>
+</tbody></table>
+<h4 id="domain-order-management">Domain: Order Management</h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Use cases</th>
+<th>Verification</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>FR-04</strong></td>
+<td>The system shall accept an order only after re-validating items, prices, fees, taxes and merchant status at checkout, shall assign it a unique identifier and a quoted delivery window, and shall treat repeated submissions with the same idempotency key as the same order.</td>
+<td>UC-02</td>
+<td>Duplicate submission test yields one order and one authorization.</td>
+</tr>
+<tr>
+<td><strong>FR-05</strong></td>
+<td>The system shall manage every order through the state machine CREATED → PAYMENT AUTHORIZED → SENT TO MERCHANT → CONFIRMED → PREPARING → READY FOR PICKUP → PICKED UP → DELIVERED (with terminal states CANCELLED and DELIVERY FAILED), shall reject invalid transitions, shall record each transition with timestamp and actor in an immutable order history, and shall apply the state-dependent cancellation policy.</td>
+<td>UC-02, UC-03, UC-07, UC-09</td>
+<td>Invalid-transition tests; history completeness audit for sampled orders.</td>
+</tr>
+</tbody></table>
+<figure><img src="../diagrams/order_state_machine.svg" alt="Figure 3. Order lifecycle state machine (FR-05)"><figcaption>Figure 3. Order lifecycle state machine (FR-05)</figcaption></figure>
+<h4 id="domain-merchant-integration">Domain: Merchant Integration</h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Use cases</th>
+<th>Verification</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>FR-06</strong></td>
+<td>The system shall transmit each paid order to its merchant through the merchant&#39;s configured channel (POS API, tablet or fallback), shall never exceed the merchant&#39;s declared API rate limit, shall retry failed transmissions without creating duplicates, and shall cancel and notify if the merchant neither confirms nor rejects within 5 minutes.</td>
+<td>UC-03</td>
+<td>Load test against a rate-limited merchant simulator: zero limit violations, zero duplicate orders.</td>
+</tr>
+</tbody></table>
+<h4 id="domain-payments">Domain: Payments</h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Use cases</th>
+<th>Verification</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>FR-07</strong></td>
+<td>The system shall authorize the order total at checkout, capture the final amount after delivery, void or refund according to the cancellation policy, record Dasher earnings for each completed delivery, and guarantee that every monetary operation is executed at most once per order event.</td>
+<td>UC-02, UC-07, UC-09</td>
+<td>Reconciliation: sum of captures and refunds per order equals the order&#39;s final balance.</td>
+</tr>
+</tbody></table>
+<h4 id="domain-dispatch-amp-route-optimization">Domain: Dispatch &amp; Route Optimization</h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Use cases</th>
+<th>Verification</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>FR-08</strong></td>
+<td>The system shall maintain the state of every Dasher (OFFLINE, ONLINE IDLE, OFFERED, EN ROUTE TO STORE, AT STORE, EN ROUTE TO CONSUMER, SUSPENDED) and set a Dasher OFFLINE after 2 minutes without a location heartbeat.</td>
+<td>UC-05, UC-06, UC-07</td>
+<td>State-transition tests; heartbeat-loss test.</td>
+</tr>
+<tr>
+<td><strong>FR-09</strong></td>
+<td>The system shall assign each confirmed order to an available Dasher, optionally batching up to two orders with compatible pickup locations and delivery windows, choosing assignments that minimize predicted lateness and Dasher idle time; offers not accepted within 45 seconds shall be re-dispatched.</td>
+<td>UC-06</td>
+<td>Simulation: ≥ 95 % of orders assigned before their food-ready time at design-point load.</td>
+</tr>
+<tr>
+<td><strong>FR-10</strong></td>
+<td>The system shall compute the delivery window shown at checkout and recompute the ETA and the Dasher&#39;s route (pickup and drop-off sequence) whenever the order state, food-ready estimate or Dasher position changes materially.</td>
+<td>UC-02, UC-06, UC-07, UC-08</td>
+<td>ETA error measured against actual delivery time (see NFR-14).</td>
+</tr>
+</tbody></table>
+<figure><img src="../diagrams/dasher_state_machine.svg" alt="Figure 4. Dasher state machine (FR-08)"><figcaption>Figure 4. Dasher state machine (FR-08)</figcaption></figure>
+<h4 id="domain-tracking-amp-notifications">Domain: Tracking &amp; Notifications</h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Use cases</th>
+<th>Verification</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>FR-11</strong></td>
+<td>The system shall ingest Dasher location reports every 5 seconds while online and shall display the assigned Dasher&#39;s position and the current ETA to the consumer, refreshed at least every 5 seconds, from assignment until delivery.</td>
+<td>UC-05, UC-08</td>
+<td>End-to-end latency from Dasher report to consumer map ≤ 5 s at p95.</td>
+</tr>
+<tr>
+<td><strong>FR-12</strong></td>
+<td>The system shall notify the consumer, the merchant and the Dasher of every order state change relevant to them through their preferred channel (push, falling back to SMS for critical messages), in their language, at most once per event.</td>
+<td>UC-07, UC-08, UC-09, UC-10</td>
+<td>Event-to-notification latency ≤ 5 s at p95; duplicate-rate test.</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-traceability-matrix-use-case-functional-requirement">3.2 Traceability Matrix (Use Case ↔ Functional Requirement)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>FR-01</th>
+<th>FR-02</th>
+<th>FR-03</th>
+<th>FR-04</th>
+<th>FR-05</th>
+<th>FR-06</th>
+<th>FR-07</th>
+<th>FR-08</th>
+<th>FR-09</th>
+<th>FR-10</th>
+<th>FR-11</th>
+<th>FR-12</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UC-01 Browse &amp; search</td>
+<td></td>
+<td>●</td>
+<td>●</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UC-02 Place order &amp; pay</td>
+<td>●</td>
+<td></td>
+<td></td>
+<td>●</td>
+<td>●</td>
+<td></td>
+<td>●</td>
+<td></td>
+<td></td>
+<td>●</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UC-03 Confirm &amp; prepare</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>●</td>
+<td>●</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UC-04 Manage menu</td>
+<td></td>
+<td></td>
+<td>●</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UC-05 Go online</td>
+<td>●</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>●</td>
+<td></td>
+<td></td>
+<td>●</td>
+<td></td>
+</tr>
+<tr>
+<td>UC-06 Dispatch &amp; accept</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>●</td>
+<td>●</td>
+<td>●</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UC-07 Pick up &amp; deliver</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>●</td>
+<td></td>
+<td>●</td>
+<td>●</td>
+<td></td>
+<td>●</td>
+<td></td>
+<td>●</td>
+</tr>
+<tr>
+<td>UC-08 Track order</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>●</td>
+<td>●</td>
+<td>●</td>
+</tr>
+<tr>
+<td>UC-09 Cancel &amp; refund</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>●</td>
+<td></td>
+<td>●</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>●</td>
+</tr>
+<tr>
+<td>UC-10 Notifications</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>●</td>
+</tr>
+</tbody></table>
+<h2 id="4-non-functional-requirements">4. Non-Functional Requirements</h2>
+<p>All values refer to the <strong>design point</strong> defined in Section 5 (50,000 concurrent orders at peak). Derivations appear in the workload model.</p>
+<h3 id="4-1-expected-users">4.1 Expected Users</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>NFR-01</strong></td>
+<td>The system shall support <strong>8 million registered consumers</strong> (≈ 4 million monthly active), <strong>700,000 registered Dashers</strong> and <strong>70,000 onboarded merchants</strong> (≥ 1,000 required by the assignment).</td>
+</tr>
+<tr>
+<td><strong>NFR-02</strong></td>
+<td>The system shall support <strong>≈ 84,000 concurrent active users on average</strong> and <strong>≈ 185,000 at peak</strong> (≈ 90,000 consumers browsing or tracking, 50,000 online Dashers, 45,000 merchant devices).</td>
+</tr>
+</tbody></table>
+<h3 id="4-2-throughput-and-peak">4.2 Throughput and Peak</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>NFR-03</strong></td>
+<td>The system shall sustain <strong>21.7 million requests per hour</strong> on average (≈ 6,000 req/s), of which 5.4 M are transactional API requests and 16.3 M are Dasher location reports.</td>
+</tr>
+<tr>
+<td><strong>NFR-04</strong></td>
+<td>The system shall sustain <strong>51.6 million requests per hour at peak</strong> (≈ 14,300 req/s; 75,000 new orders per hour; 36 M location reports per hour) without violating the response-time targets of NFR-06 to NFR-09.</td>
+</tr>
+<tr>
+<td><strong>NFR-05</strong></td>
+<td>The system shall sustain peak load for a <strong>3-hour dinner window</strong> (16:30–20:00 local time, with ≥ 80 % of peak throughput for 2 hours) and a secondary lunch peak of ≈ 60 % of the dinner peak lasting 2 hours; short local bursts of <strong>2× the peak arrival rate for 15 minutes</strong> (weather, sports events) shall degrade gracefully rather than fail.</td>
+</tr>
+</tbody></table>
+<h3 id="4-3-response-time-percentile-based-measured-at-the-system-edge">4.3 Response Time (percentile-based, measured at the system edge)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Operation</th>
+<th>p95</th>
+<th>p99</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>NFR-06</strong></td>
+<td>Discovery, search and menu reads</td>
+<td>&lt; 300 ms</td>
+<td>&lt; 800 ms</td>
+</tr>
+<tr>
+<td><strong>NFR-07</strong></td>
+<td>Checkout (order creation including payment authorization)</td>
+<td>&lt; 1.5 s</td>
+<td>&lt; 3 s</td>
+</tr>
+<tr>
+<td><strong>NFR-08</strong></td>
+<td>Order status read / state-change acknowledgement to any actor</td>
+<td>&lt; 200 ms</td>
+<td>&lt; 500 ms</td>
+</tr>
+<tr>
+<td><strong>NFR-09</strong></td>
+<td>Dasher location → consumer map; order event → notification sent to gateway</td>
+<td>&lt; 5 s</td>
+<td>&lt; 10 s</td>
+</tr>
+<tr>
+<td><strong>NFR-10</strong></td>
+<td>Dispatch decision for an eligible order (first offer sent)</td>
+<td>&lt; 60 s</td>
+<td>&lt; 120 s</td>
+</tr>
+</tbody></table>
+<h3 id="4-4-availability-and-reliability">4.4 Availability and Reliability</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>NFR-11</strong></td>
+<td>The core ordering path (browse, checkout, order state, merchant transmission, dispatch, tracking) shall be available <strong>99.9 % per calendar month</strong>, i.e. at most <strong>43.8 minutes of downtime per month</strong> (8.8 hours per year) [11]. Non-critical functions (analytics, ranking personalization) shall be available 99.5 % (≤ 3.65 h/month) and their failure shall not affect ordering.</td>
+</tr>
+<tr>
+<td><strong>NFR-12</strong></td>
+<td>No confirmed order and no monetary operation shall be lost after acknowledgement to the actor (recovery point objective = 0 for orders and payments); the ordering path shall recover from the loss of a whole data center within 15 minutes.</td>
+</tr>
+</tbody></table>
+<h3 id="4-5-consistency-and-delivery-sla">4.5 Consistency and Delivery SLA</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>NFR-13</strong></td>
+<td>Order status may be <strong>eventually consistent</strong> across actors and views, but all views shall converge within <strong>5 seconds</strong> of a state change; payment records, order creation and Dasher assignment shall be <strong>strongly consistent</strong> (no double charge, no order assigned to two Dashers).</td>
+</tr>
+<tr>
+<td><strong>NFR-14</strong></td>
+<td>At least <strong>95 % of orders shall be delivered within the delivery window quoted at checkout</strong>, and the quoted ETA shall be within ±10 minutes of the actual delivery time for 90 % of orders.</td>
+</tr>
+<tr>
+<td><strong>NFR-15</strong></td>
+<td>The system shall respect each merchant&#39;s declared API rate limit 100 % of the time and shall absorb the resulting backlog without losing orders (FR-06).</td>
+</tr>
+</tbody></table>
+<h3 id="4-6-data-volume-and-growth">4.6 Data Volume and Growth</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>NFR-16</strong></td>
+<td>The system shall store <strong>≈ 8.5 TB at launch</strong> (menus and images, user profiles, one year of migrated order history, 90 days of location history).</td>
+</tr>
+<tr>
+<td><strong>NFR-17</strong></td>
+<td>The system shall accommodate <strong>≈ 54 TB of new data in the first year</strong>, growing with order volume at <strong>≈ 23 % per year</strong> (≈ 66 TB in year 2, ≈ 82 TB in year 3). Order and payment records shall be retained 7 years; raw location traces 90 days online.</td>
+</tr>
+</tbody></table>
+<h3 id="4-7-geographic-scope">4.7 Geographic Scope</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>NFR-18</strong></td>
+<td>The system shall serve <strong>North America (United States, Canada)</strong> and <strong>Latin America (Mexico, Colombia, Chile)</strong> across time zones UTC−8 to UTC−3, with ≥ 80 % of traffic in North America. Round-trip network latency from any served metropolitan area to the serving location shall be &lt; 80 ms, which implies serving from at least two geographically separate locations (west and east North America) plus one serving Latin America.</td>
+</tr>
+<tr>
+<td><strong>NFR-19</strong></td>
+<td>Personal data shall be stored and processed in compliance with local regulation of each country served (e.g. Colombia&#39;s Law 1581 of 2012 on personal data protection [12]), including the ability to keep a country&#39;s personal data within an agreed region.</td>
+</tr>
+</tbody></table>
+<h2 id="5-workload-model">5. Workload Model</h2>
+<h3 id="5-1-methodology">5.1 Methodology</h3>
+<p>The assignment fixes the design point at <strong>50,000 concurrent orders at peak</strong> [4]. We derive the rest of the profile in four steps:</p>
+<ol>
+<li><strong>Orders in flight → order arrival rate (Little&#39;s Law).</strong> For a stable system, <em>L = λ · W</em> [9]: the average number of orders in the system (<em>L</em>) equals the arrival rate (<em>λ</em>) times the time each order spends in the system (<em>W</em>). DoorDash deliveries typically take 30–60 minutes from order to door [10]; we use <strong>W = 40 minutes</strong> from checkout to delivery. So <em>λ_peak = 50,000 / 40 min = 1,250 orders/min = 75,000 orders/hour</em> (≈ 21 orders/s).</li>
+<li><strong>Peak hour → daily volume.</strong> Demand concentrates in the lunch and dinner windows; DoorDash&#39;s own guidance to Dashers places the dinner peak at 16:30–20:00 [13]. We assume the peak hour carries <strong>12 %</strong> of a day&#39;s orders (lunch + dinner ≈ 60 % of orders spread over ~5 hours). Daily volume = 75,000 / 0.12 ≈ <strong>625,000 orders/day</strong> (228 M/year) — about <strong>7.2 %</strong> of DoorDash&#39;s 2025 average of 8.7 M orders/day [1], i.e. a large multi-metro regional marketplace.</li>
+<li><strong>Scale populations from public ratios.</strong> DoorDash had 56 M MAU, &gt; 1 M merchants and (2024) 8 M Dashers for 3.17 B (2.58 B) annual orders [1][2][3]. Applying the same per-order ratios to 228 M orders/year gives ≈ 4 M MAU (we assume 8 M registered = 2 × MAU), ≈ 72,000 merchants (→ 70,000) and ≈ 707,000 Dashers (→ 700,000).</li>
+<li><strong>Requests per order.</strong> We model each order&#39;s request footprint (browsing, checkout, tracking, merchant, notifications, payments) and add telemetry from online Dashers reporting every 5 s (DoorDash collects Dasher locations &quot;every few seconds&quot; [7]).</li>
+</ol>
+<h3 id="5-2-request-footprint-per-order">5.2 Request Footprint per Order</h3>
+<table>
+<thead>
+<tr>
+<th>Traffic class</th>
+<th>Assumption</th>
+<th>Peak / hour</th>
+<th>Average / hour</th>
+<th>Read / write</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Browsing &amp; search</td>
+<td>4 sessions per order × 25 requests</td>
+<td>7.50 M</td>
+<td>2.60 M</td>
+<td>read</td>
+</tr>
+<tr>
+<td>Order tracking</td>
+<td>120 status / map refreshes per active order-hour</td>
+<td>6.00 M</td>
+<td>2.08 M</td>
+<td>read</td>
+</tr>
+<tr>
+<td>Merchant interactions</td>
+<td>10 per order (transmit, confirm, ready, adjustments)</td>
+<td>0.75 M</td>
+<td>0.26 M</td>
+<td>50 / 50</td>
+</tr>
+<tr>
+<td>Notifications</td>
+<td>8 per order across 3 actors</td>
+<td>0.60 M</td>
+<td>0.21 M</td>
+<td>write</td>
+</tr>
+<tr>
+<td>Payments</td>
+<td>4 per order (authorize, capture, refund, ledger)</td>
+<td>0.30 M</td>
+<td>0.10 M</td>
+<td>write</td>
+</tr>
+<tr>
+<td>Auth, profile, ratings</td>
+<td>6 per order</td>
+<td>0.45 M</td>
+<td>0.16 M</td>
+<td>50 / 50</td>
+</tr>
+<tr>
+<td><strong>Transactional subtotal</strong></td>
+<td></td>
+<td><strong>15.6 M</strong></td>
+<td><strong>5.4 M</strong></td>
+<td><strong>≈ 90 / 10</strong></td>
+</tr>
+<tr>
+<td>Dasher location reports</td>
+<td>every 5 s × online Dashers (50,000 peak / 22,600 avg)</td>
+<td>36.0 M</td>
+<td>16.3 M</td>
+<td>write</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>51.6 M (≈ 14,300 req/s)</strong></td>
+<td><strong>21.7 M (≈ 6,000 req/s)</strong></td>
+<td><strong>≈ 27 / 73</strong></td>
+</tr>
+</tbody></table>
+<p>Average values use the average order rate (625,000 / 24 ≈ 26,000 orders/hour, i.e. 17,400 orders in flight by Little&#39;s Law) and 22,600 online Dashers (the peak Dasher-to-order ratio with 30 % more idle supply off-peak).</p>
+<blockquote>
+<p><strong>Observation.</strong> The transactional API is read-heavy (≈ 90 % reads), but once Dasher telemetry is counted the platform is <strong>write-dominated (≈ 73 % writes)</strong>. These two workloads have opposite shapes and will be treated separately in the architecture.</p>
+</blockquote>
+<h3 id="5-3-concurrent-users">5.3 Concurrent Users</h3>
+<table>
+<thead>
+<tr>
+<th>Population</th>
+<th>Average</th>
+<th>Peak</th>
+<th>Derivation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Consumers browsing</td>
+<td>13,900</td>
+<td>40,000</td>
+<td>sessions/hour × 8-min session ÷ 60</td>
+</tr>
+<tr>
+<td>Consumers tracking an order</td>
+<td>17,400</td>
+<td>50,000</td>
+<td>= orders in flight</td>
+</tr>
+<tr>
+<td>Dashers online</td>
+<td>22,600</td>
+<td>50,000</td>
+<td>≈ 1 online Dasher per order in flight at peak (batching offsets idle supply)</td>
+</tr>
+<tr>
+<td>Merchant devices active</td>
+<td>30,000</td>
+<td>45,000</td>
+<td>≈ 65 % of 70,000 merchants open at dinner</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>≈ 84,000</strong></td>
+<td><strong>≈ 185,000</strong></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="5-4-data-volume">5.4 Data Volume</h3>
+<table>
+<thead>
+<tr>
+<th>Data class</th>
+<th>Unit size</th>
+<th>Launch</th>
+<th>Year-1 growth</th>
+<th>Justification</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Menus, items, images</td>
+<td>150 items × 200 KB × 70,000 merchants</td>
+<td>1.5 TB</td>
+<td>0.3 TB</td>
+<td>catalog churn ≈ 20 %/year</td>
+</tr>
+<tr>
+<td>Consumer, Dasher, merchant profiles</td>
+<td>≈ 5 KB × 8.8 M accounts</td>
+<td>0.05 TB</td>
+<td>0.02 TB</td>
+<td></td>
+</tr>
+<tr>
+<td>Orders, items, state history, payments</td>
+<td>≈ 20 KB per order</td>
+<td>4.6 TB (1 year migrated)</td>
+<td>4.6 TB</td>
+<td>228 M orders/year</td>
+</tr>
+<tr>
+<td>Dasher location traces</td>
+<td>100 B per point, 270 M points/day</td>
+<td>2.4 TB (90 days)</td>
+<td>9.9 TB</td>
+<td>0.6 Dasher-hours per order × 720 points/hour</td>
+</tr>
+<tr>
+<td>Operational event log (compressed 5:1)</td>
+<td>≈ 1 KB per request</td>
+<td>—</td>
+<td>38 TB</td>
+<td>21.7 M req/h average</td>
+</tr>
+<tr>
+<td>Notification log</td>
+<td>≈ 1 KB per message</td>
+<td>—</td>
+<td>1.8 TB</td>
+<td>5 M messages/day</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>≈ 8.5 TB</strong></td>
+<td><strong>≈ 54 TB/year</strong></td>
+<td>growth ≈ 23 %/year with orders [1][3]</td>
+</tr>
+</tbody></table>
+<h3 id="5-5-workload-model-summary">5.5 Workload Model Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Justification / source</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Average requests/hour</td>
+<td><strong>21.7 M</strong> (≈ 6,000 req/s); 5.4 M transactional</td>
+<td>§5.2; order rate from §5.1</td>
+</tr>
+<tr>
+<td>Peak requests/hour</td>
+<td><strong>51.6 M</strong> (≈ 14,300 req/s); 15.6 M transactional</td>
+<td>§5.2; 50,000 concurrent orders [4] + Little&#39;s Law [9]</td>
+</tr>
+<tr>
+<td>Peak new orders/hour</td>
+<td><strong>75,000</strong> (≈ 21 orders/s)</td>
+<td>50,000 / 40-min lifecycle [4][9][10]</td>
+</tr>
+<tr>
+<td>Peak-to-average ratio</td>
+<td><strong>2.9×</strong></td>
+<td>peak hour = 12 % of daily orders; dinner window [13]</td>
+</tr>
+<tr>
+<td>Peak duration</td>
+<td><strong>3 h</strong> dinner (≥ 80 % peak for 2 h) + 2 h lunch at 60 %</td>
+<td>16:30–20:00 dinner peak [13]</td>
+</tr>
+<tr>
+<td>Read/write ratio</td>
+<td><strong>90 / 10</strong> transactional; <strong>27 / 73</strong> including telemetry</td>
+<td>§5.2; location every few seconds [7]</td>
+</tr>
+<tr>
+<td>Availability (SLA)</td>
+<td><strong>99.9 %</strong> core path (≤ 43.8 min/month)</td>
+<td>assignment requirement [4]; downtime table [11]</td>
+</tr>
+<tr>
+<td>Response time</td>
+<td>p95 &lt; 300 ms reads, &lt; 1.5 s checkout; p99 &lt; 800 ms / 3 s; tracking &lt; 5 s</td>
+<td>NFR-06 – NFR-10</td>
+</tr>
+<tr>
+<td>Consistency</td>
+<td>eventual for order status (converge &lt; 5 s); strong for payments &amp; assignment</td>
+<td>assignment requirement [4]</td>
+</tr>
+<tr>
+<td>Delivery-window SLA</td>
+<td>≥ 95 % on time; ETA ± 10 min for 90 %</td>
+<td>time-based SLA required [4]; 30–60 min delivery norm [10]</td>
+</tr>
+<tr>
+<td>Data volume (launch)</td>
+<td><strong>≈ 8.5 TB</strong></td>
+<td>§5.4</td>
+</tr>
+<tr>
+<td>Data growth</td>
+<td><strong>≈ 54 TB/year</strong>, +23 %/year</td>
+<td>§5.4; 2.58 B → 3.17 B orders [1][3]</td>
+</tr>
+<tr>
+<td>Concurrent users</td>
+<td><strong>84,000 average / 185,000 peak</strong></td>
+<td>§5.3</td>
+</tr>
+<tr>
+<td>Registered users</td>
+<td>8 M consumers, 700 K Dashers, 70 K merchants</td>
+<td>per-order ratios from [1][2][3]</td>
+</tr>
+<tr>
+<td>Merchant API limits</td>
+<td>≈ 300 requests / 60 s per integration</td>
+<td>DoorDash developer documentation [8]</td>
+</tr>
+<tr>
+<td>Geographic distribution</td>
+<td>North America ≈ 85 % (US-East 45 %, US-West 30 %, Canada 10 %), Latin America ≈ 15 %; UTC−8 to UTC−3</td>
+<td>DoorDash revenue is concentrated in the US [2]; LatAm share is a team assumption for the regional expansion scenario</td>
+</tr>
+</tbody></table>
+<h3 id="5-6-daily-load-profile">5.6 Daily Load Profile</h3>
+<p>Because the served area spans five time zones, dinner peaks arrive as a rolling wave: the east-coast peak (≈ 17:00–20:00 UTC−5) starts before the west-coast peak (UTC−8) and overlaps the Latin America evening (UTC−5 to UTC−3). The design peak (75,000 orders/hour) is the <em>overlap</em> of east and central dinner with the start of the west-coast dinner; night-time load (01:00–06:00) drops to ≈ 10 % of the average, which matters for cost planning in Delivery 3.</p>
+<h2 id="6-assumptions-and-constraints">6. Assumptions and Constraints</h2>
+<ul>
+<li>The design point (50,000 concurrent orders, 1,000+ restaurants, 99.9 % availability) is fixed by the course assignment [4]; public DoorDash data is used to derive ratios, not to size the full global company.</li>
+<li>The 40-minute order lifecycle and the 12 % peak-hour share are engineering assumptions grounded in [10][13]; Delivery 3&#39;s 20× growth scenario will stress-test them.</li>
+<li>Card data never enters the platform unencrypted: tokenization is performed by the payment processor.</li>
+<li>Machine-learning models (ETA, prep-time) are treated as black-box predictors that the platform calls; their training is out of scope.</li>
+<li>This document is intentionally technology-agnostic: no cloud provider, product or database technology is selected.</li>
+</ul>
+<h2 id="7-references">7. References</h2>
+<ol class="refs">
+<li>DoorDash, Inc. "DoorDash Releases Fourth Quarter and Full Year 2025 Financial Results," Investor Relations press release, Feb. 18, 2026. Quarterly Total Orders 732 M / 761 M / 776 M / 903 M; > 56 M MAUs; ≈ $75 B merchant sales in > 40 countries; > $20 B Dasher earnings. https://ir.doordash.com/news/news-details/2026/DoorDash-Releases-Fourth-Quarter-and-Full-Year-2025-Financial-Results/default.aspx</li>
+<li>DoorDash, Inc. <i>Annual Report on Form 10-K for the fiscal year ended December 31, 2024</i>. U.S. SEC. "> 42 million monthly active users"; "8 million people dashed, earning over $18 billion"; > 30 countries. https://www.sec.gov/Archives/edgar/data/1792789/000162828025005715/dash-20241231.htm</li>
+<li>DoorDash, Inc. "DoorDash Releases Third Quarter 2025 Financial Results," Nov. 2025 (Total Orders 776 M, +21 % Y/Y; "more than 1 million merchants"); and "Fourth Quarter and Full Year 2024 Financial Results," Feb. 2025 (2,583 M Total Orders in 2024). https://ir.doordash.com/news/news-details/2025/DoorDash-Releases-Third-Quarter-2025-Financial-Results/default.aspx</li>
+<li>C. A. Sierra, "Cloud Computing — Team Project Assignment, Semester 2026-III," Universidad Distrital Francisco José de Caldas, 2026 (Team 2 workload characteristics).</li>
+<li>DoorDash Engineering, "Using ML and Optimization to Solve DoorDash's Dispatch Problem" (DeepRed dispatch system). https://careersatdoordash.com/blog/using-ml-and-optimization-to-solve-doordashs-dispatch-problem/</li>
+<li>DoorDash Engineering, "Next-Generation Optimization for Dasher Dispatch at DoorDash." https://careersatdoordash.com/blog/next-generation-optimization-for-dasher-dispatch-at-doordash/</li>
+<li>DoorDash Engineering, "Scaling DoorDash's Geospatial Innovation with a Location-Based Delivery Simulator" (Dasher location collected in batches every few seconds). https://careersatdoordash.com/blog/scaling-geospatial-innovation-with-a-location-simulator/</li>
+<li>DoorDash Developer Services, "Frequently asked questions — Drive API" (rate limit ≈ 300 requests per 60 seconds). https://developer.doordash.com/en-US/docs/drive/overview/faqs/</li>
+<li>J. D. C. Little, "A Proof for the Queuing Formula L = λW," <i>Operations Research</i>, vol. 9, no. 3, pp. 383–387, 1961.</li>
+<li>"How Long Does the Average DoorDash Delivery Take?" Organize for Living (typical 30–60 min delivery; 15–20 min in dense urban areas). https://organizeforliving.com/how-long-does-the-average-doordash-delivery-take/</li>
+<li>B. Beyer, C. Jones, J. Petoff, N. R. Murphy, <i>Site Reliability Engineering</i>, O'Reilly, 2016 — Ch. 3 "Embracing Risk" (availability and downtime budgets).</li>
+<li>Congreso de Colombia, Ley Estatutaria 1581 de 2012, "Por la cual se dictan disposiciones generales para la protección de datos personales."</li>
+<li>DoorDash, "Best Times to Dash: A Practical Scheduling Guide for Dashers," Dasher Central (dinner peak 4:30 p.m.–8 p.m.). https://dasher.doordash.com/en-us/blog/dashing-schedule</li>
+<li>DoorDash Engineering, "Scaling a routing algorithm using multithreading and ruin-and-recreate." https://careersatdoordash.com/blog/scaling-a-routing-algorithm-using-multithreading-and-ruin-and-recreate/</li>
+</ol>
+</body></html>

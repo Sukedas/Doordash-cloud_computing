@@ -1,0 +1,62 @@
+// System boundary diagram - DoorDash-style food delivery platform (Team 2, Delivery 1)
+// Render: cd tools && npm run build   (or: dot -Tsvg system_boundary.dot -o system_boundary.svg)
+digraph SystemBoundary {
+  graph [rankdir=TB, fontname="Helvetica", fontsize=11, nodesep=0.3, ranksep=0.75, pad=0.2, newrank=true];
+  node  [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor="#ffffff", color="#2c3440"];
+  edge  [fontname="Helvetica", fontsize=8.5, color="#5b6573", fontcolor="#3b4450", arrowsize=0.7];
+
+  // Human actors (top)
+  subgraph cluster_humans {
+    label="Human actors"; style="dashed"; color="#9aa3ae"; fontcolor="#5b6573";
+    consumer [label="Consumer\n(mobile / web)", shape=box, fillcolor="#fde7e5"];
+    merchant [label="Merchant staff\n(tablet / portal)", fillcolor="#fde7e5"];
+    dasher   [label="Dasher\n(courier app)", fillcolor="#fde7e5"];
+    ops      [label="Support & Operations\nagent", fillcolor="#fde7e5"];
+  }
+
+  // System under design
+  subgraph cluster_system {
+    label="SYSTEM BOUNDARY — Food Delivery Platform (in scope)"; style="rounded,filled,bold"; fillcolor="#f3f5f8"; color="#b3261e"; fontcolor="#b3261e"; fontsize=12;
+    acc  [label="Identity &\nAccounts"];
+    disc [label="Discovery, Search\n& Catalog"];
+    ord  [label="Order Management\n(state machine)"];
+    pay  [label="Payment\norchestration"];
+    mint [label="Merchant\nIntegration"];
+    dsp  [label="Dispatch &\nDasher State"];
+    rte  [label="Route Optimization\n& ETA"];
+    trk  [label="Real-time\nTracking"];
+    ntf  [label="Notifications"];
+    ana  [label="Operational\nAnalytics"];
+    { rank=same; acc; disc; ord; mint; dsp; trk; }
+    { rank=same; pay; rte; ntf; ana; }
+    ord -> pay [style=invis]; dsp -> rte [style=invis]; trk -> ntf [style=invis]; disc -> ana [style=invis];
+  }
+
+  // External systems (bottom)
+  subgraph cluster_ext {
+    label="External systems (out of scope)"; style="dashed"; color="#9aa3ae"; fontcolor="#5b6573";
+    psp   [label="Payment processor /\ncard networks", fillcolor="#e6eef8"];
+    pos   [label="Merchant POS &\nordering APIs", fillcolor="#e6eef8"];
+    maps  [label="Maps, geocoding &\ntraffic provider", fillcolor="#e6eef8"];
+    push  [label="Mobile push\nplatforms", fillcolor="#e6eef8"];
+    sms   [label="SMS / e-mail\ngateways", fillcolor="#e6eef8"];
+    idp   [label="Identity verification /\nbackground checks", fillcolor="#e6eef8"];
+  }
+  { rank=same; consumer; merchant; dasher; ops; }
+  { rank=same; idp; pos; psp; maps; push; sms; }
+
+  consumer -> disc [label="browses, searches"];
+  consumer -> ord  [label="places, tracks,\ncancels orders"];
+  merchant -> mint [label="confirms orders,\nmarks ready"];
+  merchant -> disc [label="edits menu, hours"];
+  dasher   -> dsp  [label="goes online, accepts\noffers, updates status"];
+  dasher   -> trk  [label="streams GPS\nlocation"];
+  ops      -> ord  [label="resolves issues,\nrefunds"];
+
+  pay  -> psp  [label="authorize /\ncapture / refund"];
+  mint -> pos  [label="injects orders\n(rate-limited)"];
+  rte  -> maps [label="road network,\ntravel times"];
+  ntf  -> push [label="push messages"];
+  ntf  -> sms  [label="SMS / e-mail\nfallback"];
+  acc  -> idp  [label="verifies Dashers"];
+}

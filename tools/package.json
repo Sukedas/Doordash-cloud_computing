@@ -1,0 +1,14 @@
+{
+  "name": "doordash-docs-build",
+  "private": true,
+  "type": "module",
+  "description": "Builds the delivery PDFs from Markdown sources and Graphviz diagrams.",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@viz-js/viz": "^3.11.0",
+    "marked": "^15.0.0",
+    "puppeteer-core": "^23.0.0"
+  }
+}

@@ -1,0 +1,32 @@
+// Order lifecycle state machine (FR-05) - Team 2, Delivery 1
+digraph OrderStateMachine {
+  graph [rankdir=TB, fontname="Helvetica", fontsize=11, nodesep=0.5, ranksep=0.4, pad=0.2];
+  node  [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor="#ffffff", color="#2c3440"];
+  edge  [fontname="Helvetica", fontsize=8.5, color="#5b6573", fontcolor="#3b4450", arrowsize=0.7];
+
+  start [shape=circle, label="", width=0.18, style=filled, fillcolor="#2c3440"];
+  CREATED; PAYMENT_AUTHORIZED [label="PAYMENT\nAUTHORIZED"]; SENT_TO_MERCHANT [label="SENT TO\nMERCHANT"];
+  CONFIRMED; PREPARING; READY [label="READY FOR\nPICKUP"]; PICKED_UP [label="PICKED UP"];
+  DELIVERED [fillcolor="#e3f2e6"];
+  CANCELLED [fillcolor="#fde7e5"]; FAILED [label="DELIVERY\nFAILED", fillcolor="#fde7e5"];
+
+  start -> CREATED [label="checkout"];
+  CREATED -> PAYMENT_AUTHORIZED [label="auth OK"];
+  PAYMENT_AUTHORIZED -> SENT_TO_MERCHANT [label="order\ntransmitted"];
+  SENT_TO_MERCHANT -> CONFIRMED [label="merchant\naccepts"];
+  CONFIRMED -> PREPARING [label="prep\nstarted"];
+  PREPARING -> READY [label="food\nready"];
+  READY -> PICKED_UP [label="Dasher\npickup"];
+  PICKED_UP -> DELIVERED [label="proof of\ndelivery"];
+
+  CREATED -> CANCELLED [label="auth declined"];
+  SENT_TO_MERCHANT -> CANCELLED [label="rejected /\nno answer 5 min"];
+  CONFIRMED -> CANCELLED [label="consumer or\nsupport cancel"];
+  PREPARING -> CANCELLED [label="support cancel\n(partial refund)"];
+  PICKED_UP -> FAILED [label="undeliverable"];
+
+  // Dasher assignment runs in parallel with preparation (not an order state):
+  note [shape=note, style=filled, fillcolor="#fff8e1", fontsize=8.5,
+        label="Dasher assignment is a parallel\nsub-state: UNASSIGNED -> OFFERED ->\nASSIGNED -> AT_STORE, driven by dispatch"];
+  CONFIRMED -> note [style=dashed, arrowhead=none];
+}

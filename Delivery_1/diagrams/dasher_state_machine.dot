@@ -1,0 +1,26 @@
+// Dasher (courier) state machine (FR-08) - Team 2, Delivery 1
+digraph DasherStateMachine {
+  graph [rankdir=TB, fontname="Helvetica", fontsize=11, nodesep=0.6, ranksep=0.45, pad=0.2];
+  node  [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor="#ffffff", color="#2c3440"];
+  edge  [fontname="Helvetica", fontsize=8.5, color="#5b6573", fontcolor="#3b4450", arrowsize=0.7];
+
+  OFFLINE [fillcolor="#eceff3"];
+  IDLE [label="ONLINE\nIDLE"];
+  OFFERED;
+  EN_ROUTE_STORE [label="EN ROUTE\nTO STORE"];
+  AT_STORE [label="AT STORE"];
+  EN_ROUTE_CUST [label="EN ROUTE TO\nCONSUMER"];
+
+  OFFLINE -> IDLE [label="go online\n(in active zone)"];
+  IDLE -> OFFLINE [label="go offline /\nheartbeat lost 2 min"];
+  IDLE -> OFFERED [label="dispatch\noffer"];
+  OFFERED -> IDLE [label="decline /\ntimeout 45 s"];
+  OFFERED -> EN_ROUTE_STORE [label="accept"];
+  EN_ROUTE_STORE -> AT_STORE [label="geofence\narrival"];
+  AT_STORE -> EN_ROUTE_CUST [label="pickup\nconfirmed"];
+  EN_ROUTE_CUST -> EN_ROUTE_STORE [label="batched order:\nnext pickup"];
+  EN_ROUTE_CUST -> IDLE [label="all drops\ndelivered"];
+  EN_ROUTE_CUST -> SUSPENDED [label="delivery failed /\nsafety incident", style=dashed];
+  SUSPENDED [fillcolor="#fde7e5"];
+  SUSPENDED -> IDLE [label="support\nresolves", style=dashed];
+}

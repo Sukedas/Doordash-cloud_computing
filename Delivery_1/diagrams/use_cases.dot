@@ -1,0 +1,40 @@
+// Use case diagram - DoorDash-style food delivery platform (Team 2, Delivery 1)
+digraph UseCases {
+  graph [rankdir=LR, fontname="Helvetica", fontsize=11, nodesep=0.22, ranksep=1.1, pad=0.2];
+  node  [fontname="Helvetica", fontsize=10];
+  edge  [color="#5b6573", arrowhead=none];
+
+  consumer [label="Consumer", shape=box, style="rounded,filled", fillcolor="#fde7e5", color="#2c3440"];
+  merchant [label="Merchant", shape=box, style="rounded,filled", fillcolor="#fde7e5", color="#2c3440"];
+  dasher   [label="Dasher", shape=box, style="rounded,filled", fillcolor="#fde7e5", color="#2c3440"];
+  ops      [label="Support agent", shape=box, style="rounded,filled", fillcolor="#fde7e5", color="#2c3440"];
+
+  subgraph cluster_sys {
+    label="Food Delivery Platform"; style="rounded,filled"; fillcolor="#f3f5f8"; color="#b3261e"; fontcolor="#b3261e";
+    node [shape=ellipse, style=filled, fillcolor="#ffffff", color="#2c3440"];
+    uc1 [label="UC-01 Browse & search\nrestaurants"];
+    uc2 [label="UC-02 Place order\n& pay"];
+    uc3 [label="UC-03 Confirm &\nprepare order"];
+    uc4 [label="UC-04 Manage menu\n& availability"];
+    uc5 [label="UC-05 Go online /\nmanage availability"];
+    uc6 [label="UC-06 Dispatch & accept\ndelivery offer"];
+    uc7 [label="UC-07 Pick up &\ndeliver order"];
+    uc8 [label="UC-08 Track order\nin real time"];
+    uc9 [label="UC-09 Cancel order\n& refund"];
+    uc10 [label="UC-10 Receive order\nnotifications"];
+  }
+
+  psp  [label="Payment processor", shape=box, style="filled", fillcolor="#e6eef8", color="#2c3440"];
+  pos  [label="Merchant POS", shape=box, style="filled", fillcolor="#e6eef8", color="#2c3440"];
+  maps [label="Maps provider", shape=box, style="filled", fillcolor="#e6eef8", color="#2c3440"];
+  push [label="Push / SMS gateways", shape=box, style="filled", fillcolor="#e6eef8", color="#2c3440"];
+
+  consumer -> {uc1 uc2 uc8 uc9 uc10};
+  merchant -> {uc3 uc4 uc10};
+  dasher   -> {uc5 uc6 uc7 uc10};
+  ops      -> uc9;
+  uc2 -> psp; uc9 -> psp;
+  uc3 -> pos;
+  uc6 -> maps; uc8 -> maps;
+  uc10 -> push;
+}
