@@ -1,0 +1,27 @@
+// Place-order saga (orchestrated by the Order Service) with compensations (Team 2, Delivery 2)
+digraph PlaceOrderSaga {
+  graph [rankdir=TB, fontname="Helvetica", fontsize=10, nodesep=0.35, ranksep=0.38, pad=0.2];
+  node  [fontname="Helvetica", fontsize=9, shape=box, style="rounded,filled", fillcolor="#ffffff", color="#2c3440"];
+  edge  [fontname="Helvetica", fontsize=8, color="#5b6573", fontcolor="#3b4450", arrowsize=0.6];
+
+  s1 [label="1. Consumer submits checkout with idempotency key\n(API Gateway → Order, sync)"];
+  s2 [label="2. Order validates prices with Catalog and gets window quote from Route & ETA (sync)"];
+  s3 [label="3. Order inserts ORDER=CREATED + OrderCreated in OUTBOX\n(one local ACID transaction)"];
+  s4 [label="4. Order → Payment: authorize (sync, idempotent, timeout 2 s)"];
+  s5 [label="5. ORDER=PAYMENT_AUTHORIZED; respond 201 to consumer\nOrderPaymentAuthorized published (async)"];
+  s6 [label="6. Merchant Integration consumes event, queues order per merchant\ntoken bucket, delivers to POS / tablet"];
+  s7 [label="7. MerchantConfirmed event → ORDER=CONFIRMED\nDispatch starts assignment; Notification informs consumer"];
+  s8 [label="8. ... PREPARING → READY → PICKED_UP → DELIVERED (events)"];
+  s9 [label="9. OrderDelivered → Payment captures final amount,\nwrites ledger (consumer, merchant, Dasher, platform)"];
+
+  c4 [label="Compensate: ORDER=CANCELLED\n(no charge) · notify consumer", fillcolor="#fde7e5"];
+  c6 [label="Compensate: void authorization · ORDER=CANCELLED\n· notify consumer · release Dasher", fillcolor="#fde7e5"];
+  t4 [label="Timeout / unknown: query processor by idempotency key,\nretry with backoff; if still unknown → void", fillcolor="#fff8e1"];
+
+  s1 -> s2 -> s3 -> s4 -> s5 -> s6 -> s7 -> s8 -> s9;
+  s4 -> c4 [label="declined"];
+  s4 -> t4 [label="timeout", style=dashed];
+  s6 -> c6 [label="rejected / no answer\nin 5 min"];
+  { rank=same; s4; c4; t4; }
+  { rank=same; s6; c6; }
+}

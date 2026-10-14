@@ -1,0 +1,84 @@
+// Data model sketch per owning service (Team 2, Delivery 2)
+// Each cluster is one service's private data store. Dashed edges are references by ID only (no foreign keys across stores).
+digraph DataModel {
+  graph [rankdir=LR, fontname="Helvetica", fontsize=10, nodesep=0.25, ranksep=0.55, pad=0.2];
+  node  [fontname="Helvetica", fontsize=10, shape=plain];
+  edge  [color="#5b6573", arrowsize=0.6, fontname="Helvetica", fontsize=7.5];
+
+  subgraph cluster_order {
+    label="Order Service — relational (ACID)"; style="rounded,filled"; fillcolor="#fdf1f0"; color="#b3261e"; fontcolor="#8c1d17";
+    orders [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#b3261e"><font color="white"><b>ORDER</b></font></td></tr>
+      <tr><td align="left">order_id (PK)<br align="left"/>consumer_id · store_id<br align="left"/>status · version<br align="left"/>subtotal · fees · tax · total<br align="left"/>quoted_window_start/end<br align="left"/>delivery_address · region<br align="left"/>created_at · updated_at<br align="left"/></td></tr></table>>];
+    items [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#b3261e"><font color="white"><b>ORDER_ITEM</b></font></td></tr>
+      <tr><td align="left">order_id (FK) · line_no<br align="left"/>item_id · menu_version<br align="left"/>name · qty · unit_price<br align="left"/>modifiers (json)<br align="left"/></td></tr></table>>];
+    hist [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#b3261e"><font color="white"><b>ORDER_STATE_HISTORY</b></font></td></tr>
+      <tr><td align="left">order_id (FK) · seq<br align="left"/>from_state · to_state<br align="left"/>actor_type · actor_id · at<br align="left"/></td></tr></table>>];
+    idem [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#b3261e"><font color="white"><b>IDEMPOTENCY_KEY</b></font></td></tr>
+      <tr><td align="left">key (PK) · order_id<br align="left"/>request_hash · expires_at<br align="left"/></td></tr></table>>];
+    outbox [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#5b6573"><font color="white"><b>OUTBOX</b></font></td></tr>
+      <tr><td align="left">event_id (PK) · aggregate_id<br align="left"/>type · payload · published<br align="left"/></td></tr></table>>];
+    saga [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#5b6573"><font color="white"><b>SAGA_INSTANCE</b></font></td></tr>
+      <tr><td align="left">saga_id · order_id<br align="left"/>step · status · deadline<br align="left"/></td></tr></table>>];
+    orders -> items [label="1..n"]; orders -> hist [label="1..n"]; idem -> orders; orders -> saga [label="1..n"];
+  }
+
+  subgraph cluster_pay {
+    label="Payment Service — relational (ACID, append-only ledger)"; style="rounded,filled"; fillcolor="#fdf1f0"; color="#b3261e"; fontcolor="#8c1d17";
+    pint [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#b3261e"><font color="white"><b>PAYMENT_INTENT</b></font></td></tr>
+      <tr><td align="left">intent_id (PK) · order_id<br align="left"/>amount · currency · status<br align="left"/>processor_ref · idempotency_key<br align="left"/></td></tr></table>>];
+    ledger [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#b3261e"><font color="white"><b>LEDGER_ENTRY</b></font></td></tr>
+      <tr><td align="left">entry_id · intent_id<br align="left"/>account (consumer / merchant /<br align="left"/>dasher / platform)<br align="left"/>debit · credit · at<br align="left"/></td></tr></table>>];
+    pint -> ledger [label="1..n"];
+  }
+
+  subgraph cluster_cat {
+    label="Merchant Catalog — relational + object storage (images)"; style="rounded,filled"; fillcolor="#f7f1e6"; color="#d8c29a"; fontcolor="#7a5a1d";
+    store [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#7a5a1d"><font color="white"><b>STORE</b></font></td></tr>
+      <tr><td align="left">store_id (PK) · merchant_id<br align="left"/>location · delivery_zone<br align="left"/>hours · status (open/paused)<br align="left"/></td></tr></table>>];
+    menu [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#7a5a1d"><font color="white"><b>MENU_VERSION</b></font></td></tr>
+      <tr><td align="left">store_id · version · active<br align="left"/></td></tr></table>>];
+    mitem [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#7a5a1d"><font color="white"><b>MENU_ITEM</b></font></td></tr>
+      <tr><td align="left">item_id · version · name<br align="left"/>price · available · image_ref<br align="left"/></td></tr></table>>];
+    store -> menu [label="1..n"]; menu -> mitem [label="1..n"];
+  }
+
+  subgraph cluster_log {
+    label="Logistics services — key-value, time-series"; style="rounded,filled"; fillcolor="#eef4ec"; color="#a9c7a2"; fontcolor="#2f5d27";
+    dasher [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#2f5d27"><font color="white"><b>DASHER (Dasher Svc)</b></font></td></tr>
+      <tr><td align="left">dasher_id · zone · vehicle<br align="left"/>state · version<br align="left"/>active_assignments[]<br align="left"/></td></tr></table>>];
+    pos [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#2f5d27"><font color="white"><b>LATEST_POSITION (Location)</b></font></td></tr>
+      <tr><td align="left">dasher_id (key) → lat · lng<br align="left"/>heading · speed · ts  (TTL 2 min)<br align="left"/></td></tr></table>>];
+    trace [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#2f5d27"><font color="white"><b>LOCATION_TRACE (Location)</b></font></td></tr>
+      <tr><td align="left">(dasher_id, ts) → lat · lng<br align="left"/>retention 90 days<br align="left"/></td></tr></table>>];
+    asg [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#2f5d27"><font color="white"><b>ASSIGNMENT (Dispatch)</b></font></td></tr>
+      <tr><td align="left">order_id (key) · dasher_id<br align="left"/>offer_status · offered_at<br align="left"/>batch_id · version (CAS)<br align="left"/></td></tr></table>>];
+    tview [label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="3" bgcolor="white">
+      <tr><td bgcolor="#2f5d27"><font color="white"><b>TRACKING_VIEW (Tracking)</b></font></td></tr>
+      <tr><td align="left">order_id (key) → status · eta<br align="left"/>dasher position · last_event_seq<br align="left"/></td></tr></table>>];
+    dasher -> pos [style=dashed, label="dasher_id"]; pos -> trace [style=dashed];
+  }
+
+  // cross-store references by id (no shared tables)
+  edge [style=dashed, color="#9aa3ae"];
+  orders -> store [label="store_id"];
+  items -> mitem [label="item_id + version"];
+  pint -> orders [label="order_id", dir=back];
+  asg -> orders [label="order_id", dir=back];
+  asg -> dasher [label="dasher_id"];
+  tview -> orders [label="projection of", dir=back];
+}

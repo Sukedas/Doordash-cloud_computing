@@ -1,0 +1,25 @@
+// Real-time tracking data path: Dasher GPS -> consumer map (Team 2, Delivery 2)
+digraph LocationPipeline {
+  graph [rankdir=LR, fontname="Helvetica", fontsize=10, nodesep=0.35, ranksep=0.45, pad=0.2];
+  node  [fontname="Helvetica", fontsize=9, shape=box, style="rounded,filled", fillcolor="#ffffff", color="#2c3440"];
+  edge  [fontname="Helvetica", fontsize=8, color="#5b6573", fontcolor="#3b4450", arrowsize=0.6];
+
+  app  [label="Dasher app\n(batch every 5 s)", fillcolor="#08427b", fontcolor="white"];
+  gw   [label="API Gateway"];
+  loc  [label="Location Service\n(validate, dedupe)"];
+  kv   [label="Latest position\n(in-memory key-value)", shape=cylinder];
+  ts   [label="Location traces\n(time-series store)", shape=cylinder];
+  top  [label="location.updates\n(partitioned by dasher_id)", shape=cds, fillcolor="#2c3440", fontcolor="white"];
+  dsp  [label="Dispatch\n(zone state)"];
+  trk  [label="Tracking\n(only assigned Dashers)"];
+  rt   [label="Real-time Gateway"];
+  cons [label="Consumer map\n(≤ 5 s p95)", fillcolor="#08427b", fontcolor="white"];
+  ana  [label="Analytics\nIngestion"];
+
+  app -> gw -> loc;
+  loc -> kv [label="upsert (latest wins)"];
+  loc -> top [label="publish"];
+  top -> ts [label="batched writes"];
+  top -> dsp; top -> trk; top -> ana;
+  trk -> rt -> cons;
+}

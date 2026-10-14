@@ -1,0 +1,42 @@
+// C4 Level 1 - System Context diagram (Team 2, Delivery 2)
+// The platform is a single black box; every external person and system is shown with labeled interactions.
+digraph C4Context {
+  graph [rankdir=TB, fontname="Helvetica", fontsize=11, nodesep=0.45, ranksep=1.0, pad=0.25, newrank=true];
+  node  [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", color="#2c3440", margin="0.15,0.08"];
+  edge  [fontname="Helvetica", fontsize=8.5, color="#5b6573", fontcolor="#3b4450", arrowsize=0.7];
+
+  // People
+  consumer [label=<<b>Consumer</b><br/><font point-size="8">[Person]</font><br/><font point-size="8">Orders food, pays, tracks delivery</font>>, fillcolor="#08427b", fontcolor="white", color="#073b6f"];
+  merchant [label=<<b>Merchant staff</b><br/><font point-size="8">[Person]</font><br/><font point-size="8">Accepts &amp; prepares orders, edits menu</font>>, fillcolor="#08427b", fontcolor="white", color="#073b6f"];
+  dasher   [label=<<b>Dasher</b><br/><font point-size="8">[Person]</font><br/><font point-size="8">Accepts offers, picks up, delivers</font>>, fillcolor="#08427b", fontcolor="white", color="#073b6f"];
+  support  [label=<<b>Support agent</b><br/><font point-size="8">[Person]</font><br/><font point-size="8">Resolves issues, refunds, reassigns</font>>, fillcolor="#08427b", fontcolor="white", color="#073b6f"];
+  { rank=same; consumer; merchant; dasher; support; }
+
+  // The system
+  platform [label=<<b>Food Delivery Platform</b><br/><font point-size="8">[Software System]</font><br/><br/><font point-size="9">Order management, merchant integration, dispatch,<br/>route optimization &amp; ETA, real-time tracking,<br/>payments orchestration and notifications</font>>,
+            fillcolor="#b3261e", fontcolor="white", color="#8c1d17", width=4.2, height=1.4, fontsize=12];
+
+  // External systems
+  psp  [label=<<b>Payment processor</b><br/><font point-size="8">[External system]</font>>, fillcolor="#8a8f98", fontcolor="white", color="#6b7079"];
+  pos  [label=<<b>Merchant POS /<br/>ordering APIs</b><br/><font point-size="8">[External system]</font>>, fillcolor="#8a8f98", fontcolor="white", color="#6b7079"];
+  maps [label=<<b>Maps &amp; traffic<br/>provider</b><br/><font point-size="8">[External system]</font>>, fillcolor="#8a8f98", fontcolor="white", color="#6b7079"];
+  push [label=<<b>Mobile push<br/>platforms</b><br/><font point-size="8">[External system]</font>>, fillcolor="#8a8f98", fontcolor="white", color="#6b7079"];
+  sms  [label=<<b>SMS / e-mail<br/>gateways</b><br/><font point-size="8">[External system]</font>>, fillcolor="#8a8f98", fontcolor="white", color="#6b7079"];
+  idv  [label=<<b>Identity verification</b><br/><font point-size="8">[External system]</font>>, fillcolor="#8a8f98", fontcolor="white", color="#6b7079"];
+  { rank=same; psp; pos; maps; push; sms; idv; }
+
+  consumer -> platform [label="searches merchants, places &\ncancels orders, tracks delivery\n[HTTPS / persistent connection]"];
+  merchant -> platform [label="confirms orders, marks ready,\nupdates menu & hours\n[HTTPS]"];
+  dasher   -> platform [label="goes online, accepts offers,\nstreams GPS every 5 s\n[HTTPS / persistent connection]"];
+  support  -> platform [label="cancels, refunds,\nreassigns orders\n[HTTPS]"];
+
+  platform -> psp  [label="authorize / capture /\nrefund payments\n[HTTPS, idempotent]"];
+  psp -> platform  [label="payment status\ncallbacks", style=dashed];
+  platform -> pos  [label="injects orders\n(rate-limited)\n[HTTPS]"];
+  pos -> platform  [label="order confirmations,\nmenu changes", style=dashed];
+  platform -> maps [label="geocode, travel\ntimes, traffic\n[HTTPS]"];
+  platform -> push [label="sends push\nnotifications"];
+  platform -> sms  [label="sends SMS /\ne-mail fallback"];
+  platform -> idv  [label="submits Dasher\nverification"];
+  idv -> platform  [label="verification\nresult", style=dashed];
+}
